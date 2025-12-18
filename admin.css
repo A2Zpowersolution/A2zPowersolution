@@ -1,0 +1,70 @@
+/* ADMIN LOGIN PAGE CSS */
+/* DIFFERENT FROM USER WEBSITE */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #0b1220, #111c35);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-login-box {
+  width: 350px;
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(16px);
+  border-radius: 15px;
+  padding: 30px;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+.admin-login-box h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: #fff;
+}
+
+.admin-login-box input {
+  width: 95%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 19px;
+  background: #0078ff;
+  color: #fff;
+  cursor: pointer;
+  border: 3px solid #63a5f0;
+  transition: .3s;
+  margin-top: 12px;
+}
+
+.home-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 19px;
+  background: #28a745;
+  color: #fff;
+  cursor: pointer;
+  border: 3px solid #6fdc8c;
+  transition: .6s;
+  margin-top: 12px; }
+
+.login-btn:hover {
+  background: #005fcc;
+  transform: translateY(-4px);
+}

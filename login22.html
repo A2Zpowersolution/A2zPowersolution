@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login / Register</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        width: 350px;
+    }
+    .tabs {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+    .tab {
+        cursor: pointer;
+        padding: 10px;
+        border-bottom: 2px solid transparent;
+    }
+    .tab.active {
+        border-color: #007BFF;
+        font-weight: bold;
+    }
+    form {
+        display: none;
+        flex-direction: column;
+    }
+    form.active {
+        display: flex;
+    }
+    input {
+        margin: 8px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        padding: 10px;
+        background: #007BFF;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    button:hover {
+        background: #0056b3;
+    }
+    .form-options {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    .form-options a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="tabs">
+        <div id="loginTab" class="tab active">Login</div>
+        <div id="registerTab" class="tab">Register</div>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="active">
+        <input type="text" placeholder="User ID" required>
+        <input type="password" placeholder="Password" required>
+        <div class="form-options">
+            <label><input type="checkbox"> Remember Me</label>
+            <a href="#">Forgot Password?</a>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm">
+        <input type="text" placeholder="Full Name" required>
+        <input type="text" placeholder="User ID" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+<script>
+const loginTab = document.getElementById('loginTab');
+const registerTab = document.getElementById('registerTab');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+
+// Switch between login and register
+loginTab.addEventListener('click', () => {
+    loginTab.classList.add('active');
+    registerTab.classList.remove('active');
+    loginForm.classList.add('active');
+    registerForm.classList.remove('active');
+});
+
+registerTab.addEventListener('click', () => {
+    registerTab.classList.add('active');
+    loginTab.classList.remove('active');
+    registerForm.classList.add('active');
+    loginForm.classList.remove('active');
+});
+
+// Prevent page reload and show alerts
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Login button clicked. Add your login code here.');
+});
+
+registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Register button clicked. Add your register code here.');
+});
+</script>
+
+</body>
+</html>

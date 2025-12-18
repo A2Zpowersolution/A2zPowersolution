@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Manage Service Rates | Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="admin.css">
+
+<style>
+.main{padding:30px;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{background:rgba(255,255,255,.08);padding:16px;border-radius:14px}
+input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:none}
+.btn{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.primary{background:#0078ff;color:#fff}
+.danger{background:#ff3b3b;color:#fff}
+</style>
+</head>
+
+<body>
+
+<div class="main">
+  <h1>🛠 Manage Electrical Service Rates</h1>
+
+  <button class="btn primary" onclick="addItem()">➕ Add Service</button>
+
+  <h3>Repair Visit Charge (₹)</h3>
+  <input type="number" id="visitCharge" onchange="saveVisitCharge()">
+
+  <div id="list" class="grid" style="margin-top:20px"></div>
+</div>
+
+<script>
+const KEY = "a2z_services";
+
+/* DEFAULT DATA */
+const DEFAULT = {
+  electrical:{
+    repairVisit:300,
+    installation:[
+      {name:"Fan Installation",price:200,unit:"Per Fan"},
+      {name:"Light Installation",price:79,unit:"Per Light"},
+      {name:"MCB Installation",price:120,unit:"Per MCB"}
+    ]
+  }
+};
+
+function load(){
+  let d = localStorage.getItem(KEY);
+  if(!d){
+    localStorage.setItem(KEY, JSON.stringify(DEFAULT));
+    return DEFAULT;
+  }
+  return JSON.parse(d);
+}
+
+function save(data){
+  localStorage.setItem(KEY, JSON.stringify(data));
+  render();
+}
+
+function render(){
+  const data = load();
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  document.getElementById("visitCharge").value = data.electrical.repairVisit;
+
+  data.electrical.installation.forEach((s,i)=>{
+    list.innerHTML += `
+      <div class="card">
+        <input value="${s.name}" onchange="edit(${i},'name',this.value)">
+        <input type="number" value="${s.price}" onchange="edit(${i},'price',this.value)">
+        <input value="${s.unit}" onchange="edit(${i},'unit',this.value)">
+        <button class="btn danger" onclick="remove(${i})">Delete</button>
+      </div>
+    `;
+  });
+}
+
+function edit(i,key,val){
+  const data = load();
+  data.electrical.installation[i][key] = key==="price"?Number(val):val;
+  save(data);
+}
+
+function remove(i){
+  const data = load();
+  data.electrical.installation.splice(i,1);
+  save(data);
+}
+
+function addItem(){
+  const data = load();
+  data.electrical.installation.push({name:"New Service",price:0,unit:"Per Unit"});
+  save(data);
+}
+
+function saveVisitCharge(){
+  const data = load();
+  data.electrical.repairVisit = Number(document.getElementById("visitCharge").value);
+  save(data);
+}
+
+render();
+</script>
+
+</body>
+</html>

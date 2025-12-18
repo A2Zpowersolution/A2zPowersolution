@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Products | A2z Power Solution</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="styles.css">
+
+<style>
+/* Extra flipkart style */
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+.product-card{
+  background:rgba(255,255,255,.10);
+  border-radius:14px;
+  padding:15px;
+  text-align:left;
+  transition:.3s;
+}
+.product-card:hover{
+  transform:translateY(-6px);
+  background:rgba(255,255,255,.18);
+}
+.product-card img{
+  width:100%;
+  height:160px;
+  object-fit:contain;
+  border-radius:10px;
+  background:#fff;
+}
+.price{
+  font-size:18px;
+  font-weight:600;
+  margin:6px 0;
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar glass">
+  <div class="brand">
+    <h1>A2z Power Solution</h1>
+    <p class="sub">Products</p>
+  </div>
+
+  <nav class="nav">
+    <button class="nav-btn" onclick="location.href='Index.html'">Home</button>
+    <button class="nav-btn" onclick="location.href='admin.html'">Admin</button>
+  </nav>
+</header>
+
+<main class="container">
+  <h2>Available Products</h2>
+  <p>Select product & enquire on WhatsApp</p>
+
+  <div id="productGrid" class="products-grid"></div>
+</main>
+
+<script>
+/* ================= CONFIG ================= */
+const WHATSAPP = "917011196579";
+
+/* ================= DEFAULT PRODUCTS ================= */
+const DEFAULT_PRODUCTS = [
+  {
+    id:1,
+    name:"Inverter 1000VA",
+    price:6000,
+    image:"https://i.imgur.com/8Qf4ZxN.png"
+  },
+  {
+    id:2,
+    name:"Split AC 1.5 Ton",
+    price:30000,
+    image:"https://i.imgur.com/0Z8FQpY.png"
+  },
+  {
+    id:3,
+    name:"LED TV 43 Inch",
+    price:28000,
+    image:"https://i.imgur.com/kY6QF4G.png"
+  },
+  {
+    id:4,
+    name:"Water Geyser",
+    price:9000,
+    image:"https://i.imgur.com/YQZ7Oe8.png"
+  }
+];
+
+/* ================= LOAD PRODUCTS ================= */
+function loadProducts(){
+  let data = localStorage.getItem("a2z_products");
+
+  if(!data){
+    localStorage.setItem("a2z_products", JSON.stringify(DEFAULT_PRODUCTS));
+    return DEFAULT_PRODUCTS;
+  }
+  return JSON.parse(data);
+}
+
+/* ================= RENDER ================= */
+function renderProducts(){
+  const grid = document.getElementById("productGrid");
+  const products = loadProducts();
+
+  grid.innerHTML = "";
+
+  products.forEach(p=>{
+    grid.innerHTML += `
+      <div class="product-card glass">
+        <img src="${p.image}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <div class="price">₹${p.price}</div>
+        <button class="btn primary" onclick="enquire('${p.name}',${p.price})">
+          Enquiry
+        </button>
+      </div>
+    `;
+  });
+}
+
+/* ================= WHATSAPP ================= */
+function enquire(name, price){
+  const msg = `Hi,
+I am interested in product:
+${name}
+Price: ₹${price}
+
+Please contact me.`;
+
+  window.open(
+    `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,
+    "_blank"
+  );
+}
+
+/* ================= INIT ================= */
+renderProducts();
+</script>
+
+</body>
+</html>

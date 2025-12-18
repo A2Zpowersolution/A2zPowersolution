@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login | A2z Power Solution</title>
+<link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+<div class="admin-login-box">
+    <h2>Admin Login</h2>
+
+    <input type="text" id="admin-user" placeholder="Enter Admin ID">
+    <input type="password" id="admin-pass" placeholder="Enter Password">
+
+    <button onclick="adminLogin()" class="login-btn">Login</button>
+    <button onclick="window.location='index.html'" class="login-btn">Home</button>
+
+</div>
+
+<script>
+function adminLogin() {
+    const user = document.getElementById("admin-user").value.trim();
+    const pass = document.getElementById("admin-pass").value.trim();
+
+    if (user === "Itszflame" && pass === "Dkyadv22") {
+        window.location.href = "admin-dashboard.html";
+    } else {
+        alert("❌ Invalid Admin Credentials");
+    }
+}
+</script>
+
+</body>
+</html>

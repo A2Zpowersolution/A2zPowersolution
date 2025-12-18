@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>A2Z Power Solution - AC Sales & Services</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    .chatbot-container { transition: all 0.3s ease; }
+    .chatbot-hidden { transform: translateY(100%); opacity:0; height:0; overflow:hidden; }
+    .chatbot-visible { transform: translateY(0); opacity:1; height:auto; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    /* small modal backdrop */
+    .modal-backdrop { background: rgba(0,0,0,0.45); }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+<!-- NAV -->
+<nav class="bg-blue-800 text-white shadow-lg">
+  <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <img src="" alt="A2z Logo.png" class="h-10 w-10 rounded-full bg-white/10"/>
+      <a href="#" class="text-2xl font-bold">A2Z Power Solution</a>
+    </div>
+
+    <div class="hidden md:flex items-center space-x-6">
+      <a href="#products" class="hover:text-blue-200 transition">Products</a>
+      <a href="#services" class="hover:text-blue-200 transition">Services</a>
+      <a href="#sell" class="hover:text-blue-200 transition">Sell AC</a>
+      <a href="#support" class="hover:text-blue-200 transition">Support</a>
+    </div>
+
+    <div class="hidden md:flex items-center space-x-4">
+      <!-- Sign in / Sign up -->
+      <button id="open-signin" class="bg-white text-blue-800 px-3 py-1 rounded font-medium hover:bg-gray-100">Sign In</button>
+      <button id="open-signup" class="bg-transparent border border-white px-3 py-1 rounded hover:bg-blue-700">Sign Up</button>
+
+      <!-- Admin quick link (opens admin login) -->
+      <button id="open-admin-login" class="bg-white/10 px-3 py-1 rounded hover:bg-white/20">Admin</button>
+
+      <!-- Cart icon -->
+      <button id="open-cart" class="relative">
+        <i class="fas fa-shopping-cart text-xl"></i>
+        <span id="cart-count" class="absolute -top-2 -right-3 bg-red-600 text-white text-xs rounded-full px-2">0</span>
+      </button>
+    </div>
+
+    <button class="md:hidden text-2xl" id="menu-toggle"><i class="fas fa-bars"></i></button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="md:hidden hidden bg-blue-900 px-4 py-2" id="mobile-menu">
+    <a href="#products" class="block py-2 hover:text-blue-200">Products</a>
+    <a href="#services" class="block py-2 hover:text-blue-200">Services</a>
+    <a href="#sell" class="block py-2 hover:text-blue-200">Sell AC</a>
+    <a href="#support" class="block py-2 hover:text-blue-200">Support</a>
+    <div class="flex space-x-2 mt-2">
+      <button id="open-signin-mobile" class="bg-white text-blue-800 px-3 py-1 rounded font-medium">Sign In</button>
+      <button id="open-signup-mobile" class="bg-transparent border border-white px-3 py-1 rounded">Sign Up</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="bg-gradient-to-r from-blue-700 to-blue-900 text-white py-20">
+  <div class="container mx-auto px-4 text-center">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6">Your Trusted AC Solution Provider</h1>
+    <p class="text-xl md:text-2xl mb-8">Buy, sell, and service air conditioners with guaranteed quality</p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#products" class="bg-white text-blue-800 px-8 py-3 rounded-full font-semibold hover:bg-blue-100 transition">Browse AC Units</a>
+      <a href="#sell" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-800 transition">Sell Your AC</a>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="container mx-auto px-4 py-12">
+
+  <!-- Products -->
+  <section id="products" class="mb-16">
+    <h2 class="text-3xl font-bold mb-8 text-center">Premium AC Products</h2>
+    <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+  </section>
+
+  <!-- Services (unchanged) -->
+  <section id="services" class="mb-16">
+    <h2 class="text-3xl font-bold mb-8 text-center">Our Services</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <div class="text-blue-600 text-4xl mb-4"><i class="fas fa-tools"></i></div>
+        <h3 class="text-xl font-semibold mb-3">AC Installation</h3>
+        <p class="text-gray-600">Professional installation by certified technicians with proper line set insulation and vacuuming.</p>
+        <button class="mt-4 text-blue-600 hover:text-blue-800 font-medium">Learn More →</button>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <div class="text-blue-600 text-4xl mb-4"><i class="fas fa-broom"></i></div>
+        <h3 class="text-xl font-semibold mb-3">AC Maintenance</h3>
+        <p class="text-gray-600">Regular maintenance packages to keep your AC running efficiently and prolong its lifespan.</p>
+        <button class="mt-4 text-blue-600 hover:text-blue-800 font-medium">Learn More →</button>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <div class="text-blue-600 text-4xl mb-4"><i class="fas fa-lightbulb"></i></div>
+        <h3 class="text-xl font-semibold mb-3">AC Repair</h3>
+        <p class="text-gray-600">24/7 emergency repair services with genuine spare parts and 90-day warranty.</p>
+        <button class="mt-4 text-blue-600 hover:text-blue-800 font-medium">Learn More →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sell Your AC -->
+  <section id="sell" class="mb-16 bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-3xl font-bold mb-8 text-center">Sell Your Air Conditioner</h2>
+    <div class="max-w-2xl mx-auto">
+      <form id="sell-form">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label for="ac-type" class="block mb-2 font-medium">AC Type</label>
+            <select id="ac-type" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">Select AC Type</option>
+              <option value="split">Split AC</option>
+              <option value="window">Window AC</option>
+              <option value="portable">Portable AC</option>
+              <option value="cassette">Cassette AC</option>
+            </select>
+          </div>
+          <div>
+            <label for="capacity" class="block mb-2 font-medium">Capacity (Ton)</label>
+            <select id="capacity" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">Select Capacity</option>
+              <option value="1">1 Ton</option>
+              <option value="1.5">1.5 Ton</option>
+              <option value="2">2 Ton</option>
+            </select>
+          </div>
+          <div>
+            <label for="brand" class="block mb-2 font-medium">Brand</label>
+            <input type="text" id="brand" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E.g., LG, Samsung, Daikin">
+          </div>
+          <div>
+            <label for="model" class="block mb-2 font-medium">Model</label>
+            <input type="text" id="model" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E.g., AS18LY2W1">
+          </div>
+          <div>
+            <label for="year" class="block mb-2 font-medium">Year of Purchase</label>
+            <input type="number" id="year" min="2000" max="2025" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E.g., 2020">
+          </div>
+          <div>
+            <label for="price" class="block mb-2 font-medium">Expected Price (₹)</label>
+            <input type="number" id="price" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E.g., 15000">
+          </div>
+        </div>
+        <div class="mb-6">
+          <label for="photos" class="block mb-2 font-medium">Upload Photos (Max 5)</label>
+          <input type="file" id="photos" multiple accept="image/*" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div class="mb-6">
+          <label for="description" class="block mb-2 font-medium">Additional Details</label>
+          <textarea id="description" rows="4" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe the condition, issues (if any), reason for selling, etc."></textarea>
+        </div>
+        <div class="mb-6">
+          <label for="contact" class="block mb-2 font-medium">Contact Number</label>
+          <input type="tel" id="contact" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E.g., 9876543210">
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white py-3 px-6 rounded font-semibold hover:bg-blue-700 transition">Submit AC Details</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Support & Chatbot (unchanged mostly) -->
+  <section id="support" class="mb-16">
+    <h2 class="text-3xl font-bold mb-8 text-center">Technical Support & Help</h2>
+    <div class="bg-white p-8 rounded-lg shadow-md">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Common AC Issues</h3>
+          <ul class="space-y-3">
+            <li class="p-3 bg-gray-50 rounded-lg flex items-center"><i class="fas fa-question-circle text-blue-600 mr-3"></i><span>AC not cooling properly</span></li>
+            <li class="p-3 bg-gray-50 rounded-lg flex items-center"><i class="fas fa-question-circle text-blue-600 mr-3"></i><span>Water leaking from AC</span></li>
+            <li class="p-3 bg-gray-50 rounded-lg flex items-center"><i class="fas fa-question-circle text-blue-600 mr-3"></i><span>Unusual noise from AC</span></li>
+            <li class="p-3 bg-gray-50 rounded-lg flex items-center"><i class="fas fa-question-circle text-blue-600 mr-3"></i><span>AC not turning on</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-4">FAQ</h3>
+          <div class="space-y-3">
+            <div class="p-3 bg-gray-50 rounded-lg">
+              <h4 class="font-medium mb-2">How often should I service my AC?</h4>
+              <p class="text-gray-600">Experts recommend servicing your AC every 6 months for optimal performance.</p>
+            </div>
+            <div class="p-3 bg-gray-50 rounded-lg">
+              <h4 class="font-medium mb-2">What's the ideal temperature setting?</h4>
+              <p class="text-gray-600">24-26°C is the most energy-efficient and comfortable temperature range.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Chatbot -->
+      <div class="mt-8 border-t pt-8">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-semibold">Virtual AC Assistant</h3>
+          <button id="toggle-chatbot" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"><i class="fas fa-robot mr-2"></i>Start Chat</button>
+        </div>
+
+        <div id="chatbot-container" class="chatbot-container chatbot-hidden bg-gray-50 rounded-lg">
+          <div id="chat-messages" class="p-4 h-64 overflow-y-auto scrollbar-hide">
+            <div class="chatbot-message bg-blue-100 text-blue-900 rounded-lg p-3 mb-3 max-w-xs"><p>Hello! I'm A2Z Power Assistant. How can I help you with your AC today?</p></div>
+          </div>
+          <div class="p-4 border-t flex">
+            <input type="text" id="chat-input" placeholder="Type your AC problem here..." class="flex-grow px-4 py-2 border rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="send-message" class="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700 transition"><i class="fas fa-paper-plane"></i></button>
+          </div>
+          <div class="p-2 text-center text-sm text-gray-500"><p>For complex issues, we'll notify our technician to contact you directly</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-xl font-bold mb-4">A2Z Power Solution</h3>
+        <p class="text-gray-300">Your complete solution for all AC needs - sales, services, and support.</p>
+        <div class="flex space-x-4 mt-4">
+          <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-300 hover:text-white">Home</a></li>
+          <li><a href="#products" class="text-gray-300 hover:text-white">Products</a></li>
+          <li><a href="#services" class="text-gray-300 hover:text-white">Services</a></li>
+          <li><a href="#sell" class="text-gray-300 hover:text-white">Sell AC</a></li>
+          <li><a href="#support" class="text-gray-300 hover:text-white">Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Contact Us</h4>
+        <ul class="space-y-2 text-gray-300">
+          <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i><span>123 AC Street, Mumbai, India</span></li>
+          <li class="flex items-center"><i class="fas fa-phone mr-2"></i><span>+91 9876543210</span></li>
+          <li class="flex items-center"><i class="fas fa-envelope mr-2"></i><span>support@a2zpower.com</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Business Hours</h4>
+        <ul class="space-y-2 text-gray-300">
+          <li>Monday - Friday: 9am - 8pm</li>
+          <li>Saturday: 10am - 6pm</li>
+          <li>Emergency Services: 24/7</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300"><p>© 2023 A2Z Power Solution. All rights reserved.</p></div>
+  </div>
+</footer>
+
+<!-- Fixed Chatbot button -->
+<div class="fixed bottom-6 right-6">
+  <button id="chatbot-button" class="bg-blue-600 text-white w-16 h-16 rounded-full shadow-lg hover:bg-blue-700 transition flex items-center justify-center">
+    <i class="fas fa-robot text-2xl"></i>
+  </button>
+</div>
+
+<!-- ========== MODALS & PAGES (hidden) ========== -->
+
+<!-- Product Detail Modal -->
+<div id="product-modal" class="fixed inset-0 hidden items-center justify-center modal-backdrop z-40">
+  <div class="bg-white rounded-lg w-11/12 md:w-3/4 lg:w-1/2 overflow-hidden shadow-lg">
+    <div class="p-4 flex justify-between items-start border-b">
+      <h3 id="product-modal-title" class="text-xl font-semibold"></h3>
+      <button id="close-product-modal" class="text-gray-500 hover:text-gray-800"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div id="product-modal-images" class="space-y-2"></div>
+      <div>
+        <p id="product-modal-desc" class="text-gray-700 mb-3"></p>
+        <p class="text-2xl font-bold mb-2">₹ <span id="product-modal-price"></span></p>
+        <p class="mb-3"><strong>Brand:</strong> <span id="product-modal-brand"></span></p>
+        <p class="mb-3"><strong>Model:</strong> <span id="product-modal-model"></span></p>
+        <p class="mb-3"><strong>Capacity:</strong> <span id="product-modal-capacity"></span> Ton</p>
+        <p class="mb-3"><strong>In Stock:</strong> <span id="product-modal-qty"></span></p>
+
+        <div class="flex items-center gap-2 mt-4">
+          <input id="product-qty-add" type="number" min="1" value="1" class="w-20 px-3 py-2 border rounded" />
+          <button id="add-to-cart-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add to Cart</button>
+          <button id="view-cart-after-add" class="hidden bg-gray-200 text-gray-800 px-3 py-2 rounded">View Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART PANEL -->
+<div id="cart-panel" class="fixed right-4 top-20 w-96 max-h-[80vh] overflow-auto hidden bg-white rounded shadow-lg z-50">
+  <div class="p-4 border-b flex justify-between items-center">
+    <h3 class="font-semibold">Your Cart</h3>
+    <button id="close-cart" class="text-gray-500 hover:text-gray-800"><i class="fas fa-times"></i></button>
+  </div>
+  <div id="cart-items" class="p-4 space-y-3"></div>
+  <div class="p-4 border-t">
+    <p class="mb-3">Subtotal: ₹ <span id="cart-subtotal">0</span></p>
+    <button id="checkout-btn" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Checkout</button>
+  </div>
+</div>
+
+<!-- Signin Modal -->
+<div id="signin-modal" class="fixed inset-0 hidden items-center justify-center modal-backdrop z-40">
+  <div class="bg-white rounded-lg w-11/12 md:w-1/3 overflow-hidden shadow-lg">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h3 class="font-semibold">Sign In</h3>
+      <button id="close-signin" class="text-gray-500 hover:text-gray-800"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="p-4">
+      <div class="mb-3">
+        <label class="block text-sm font-medium">Email</label>
+        <input id="signin-email" type="email" class="w-full px-3 py-2 border rounded" />
+      </div>
+      <div class="mb-3">
+        <label class="block text-sm font-medium">Password</label>
+        <input id="signin-password" type="password" class="w-full px-3 py-2 border rounded" />
+      </div>
+      <div class="flex justify-between items-center">
+        <button id="signin-submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Sign In</button>
+        <button id="open-signup-from-signin" class="text-blue-600">Create account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div id="signup-modal" class="fixed inset-0 hidden items-center justify-center modal-backdrop z-40">
+  <div class="bg-white rounded-lg w-11/12 md:w-1/3 overflow-hidden shadow-lg">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h3 class="font-semibold">Sign Up</h3>
+      <button id="close-signup" class="text-gray-500 hover:text-gray-800"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="p-4">
+      <div class="mb-3"><label class="block text-sm font-medium">Name</label><input id="signup-name" class="w-full px-3 py-2 border rounded"/></div>
+      <div class="mb-3"><label class="block text-sm font-medium">Email</label><input id="signup-email" type="email" class="w-full px-3 py-2 border rounded"/></div>
+      <div class="mb-3"><label class="block text-sm font-medium">Password</label><input id="signup-password" type="password" class="w-full px-3 py-2 border rounded"/></div>
+      <div class="flex justify-between items-center">
+        <button id="signup-submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Create Account</button>
+        <button id="open-signin-from-signup" class="text-blue-600">Already have account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Login Modal -->
+<div id="admin-login-modal" class="fixed inset-0 hidden items-center justify-center modal-backdrop z-50">
+  <div class="bg-white rounded-lg w-11/12 md:w-1/3 overflow-hidden shadow-lg">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h3 class="font-semibold">Admin Login</h3>
+      <button id="close-admin-login" class="text-gray-500 hover:text-gray-800"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="p-4">
+      <div class="mb-3"><label class="block text-sm font-medium">Email</label><input id="admin-email" type="email" class="w-full px-3 py-2 border rounded" /></div>
+      <div class="mb-3"><label class="block text-sm font-medium">Password</label><input id="admin-password" type="password" class="w-full px-3 py-2 border rounded" /></div>
+      <div class="flex justify-end">
+        <button id="admin-login-submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Login</button>
+      </div>
+      <p class="text-xs text-gray-500 mt-2">Demo admin credentials: <strong>admin@a2z.com / admin123</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Page Panel (hidden, acts like a page) -->
+<div id="admin-page" class="fixed inset-0 hidden z-50 overflow-auto bg-white p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-semibold">Admin Dashboard</h2>
+    <div class="flex gap-2">
+      <button id="admin-logout" class="bg-red-500 text-white px-3 py-1 rounded">Logout</button>
+      <button id="close-admin-page" class="bg-gray-200 px-3 py-1 rounded">Close</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Add / Edit product form -->
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mb-3">Add / Edit Product</h3>
+      <div class="space-y-2">
+        <input id="admin-prod-id" type="hidden"/>
+        <div><label class="block text-sm font-medium">Title</label><input id="admin-title" class="w-full px-3 py-2 border rounded"/></div>
+        <div><label class="block text-sm font-medium">Brand</label><input id="admin-brand" class="w-full px-3 py-2 border rounded"/></div>
+        <div><label class="block text-sm font-medium">Model</label><input id="admin-model" class="w-full px-3 py-2 border rounded"/></div>
+        <div><label class="block text-sm font-medium">Capacity (Ton)</label><input id="admin-capacity" class="w-full px-3 py-2 border rounded" type="number" step="0.5"/></div>
+        <div><label class="block text-sm font-medium">Price (₹)</label><input id="admin-price" class="w-full px-3 py-2 border rounded" type="number"/></div>
+        <div><label class="block text-sm font-medium">Quantity</label><input id="admin-qty" class="w-full px-3 py-2 border rounded" type="number" min="0"/></div>
+        <div><label class="block text-sm font-medium">Description</label><textarea id="admin-desc" class="w-full px-3 py-2 border rounded"></textarea></div>
+        <div>
+          <label class="block text-sm font-medium">Image</label>
+          <input id="admin-image" type="file" accept="image/*" class="w-full" />
+          <div id="admin-image-preview" class="mt-2"></div>
+        </div>
+        <div class="flex gap-2 mt-2">
+          <button id="admin-save-product" class="bg-blue-600 text-white px-3 py-2 rounded">Save Product</button>
+          <button id="admin-clear-form" class="bg-gray-200 px-3 py-2 rounded">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products list with edit / delete -->
+    <div class="col-span-2 bg-white p-4 rounded shadow">
+      <h3 class="font-semibold mb-3">Products</h3>
+      <div id="admin-products-list" class="space-y-3 max-h-[60vh] overflow-auto"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout Modal -->
+<div id="checkout-modal" class="fixed inset-0 hidden items-center justify-center modal-backdrop z-50">
+  <div class="bg-white rounded-lg w-11/12 md:w-1/2 overflow-hidden shadow-lg">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h3 class="font-semibold">Checkout</h3>
+      <button id="close-checkout" class="text-gray-500 hover:text-gray-800"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="p-4 space-y-3">
+      <div><label class="block text-sm font-medium">Name</label><input id="checkout-name" class="w-full px-3 py-2 border rounded" /></div>
+      <div><label class="block text-sm font-medium">Phone</label><input id="checkout-phone" class="w-full px-3 py-2 border rounded" /></div>
+      <div><label class="block text-sm font-medium">Email</label><input id="checkout-email" type="email" class="w-full px-3 py-2 border rounded" /></div>
+      <div><label class="block text-sm font-medium">Address</label><textarea id="checkout-address" class="w-full px-3 py-2 border rounded"></textarea></div>
+
+      <div id="otp-section" class="hidden">
+        <label class="block text-sm font-medium">Enter OTP sent to phone</label>
+        <input id="checkout-otp" class="w-full px-3 py-2 border rounded" />
+        <div class="flex gap-2 mt-2">
+          <button id="verify-otp-btn" class="bg-green-600 text-white px-3 py-2 rounded">Verify</button>
+          <button id="resend-otp-btn" class="bg-gray-200 px-3 py-2 rounded">Resend OTP</button>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <button id="start-otp-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Send OTP & Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Page (simple) -->
+<div id="payment-page" class="fixed inset-0 hidden z-50 bg-white p-6 overflow-auto">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-semibold">Payment</h2>
+    <button id="close-payment" class="bg-gray-200 px-3 py-1 rounded">Close</button>
+  </div>
+  <div class="bg-white p-4 rounded shadow">
+    <p class="mb-2">Order summary:</p>
+    <div id="payment-order-summary" class="mb-4"></div>
+    <p class="mb-2">Select payment method (demo):</p>
+    <div class="flex gap-2 mb-4">
+      <button class="px-3 py-2 border rounded">UPI</button>
+      <button class="px-3 py-2 border rounded">Card</button>
+      <button class="px-3 py-2 border rounded">Netbanking</button>
+    </div>
+    <button id="complete-payment" class="bg-green-600 text-white px-4 py-2 rounded">Complete Payment (Demo)</button>
+  </div>
+</div>
+
+<!-- ====== SCRIPTS ====== -->
+<script>
+/* ---------------------------
+   DATA & INITIALIZATION
+   --------------------------- */
+
+const defaultProducts = [
+  {
+    id: generateId(),
+    title: "Inverter Split AC 1.5 Ton",
+    brand: "Daikin",
+    model: "AS18LY2W1",
+    capacity: "1.5",
+    price: 28999,
+    qty: 12,
+    desc: "Energy efficient inverter AC with WiFi control and self-cleaning technology.",
+    images: []
+  },
+  {
+    id: generateId(),
+    title: "Window AC 2 Ton",
+    brand: "LG",
+    model: "W20X",
+    capacity: "2",
+    price: 22499,
+    qty: 8,
+    desc: "Powerful window AC with turbo cooling and 3D air flow technology.",
+    images: ["https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fcf7269e-ee02-472b-a125-64001facc573.png"]
+  },
+  {
+    id: generateId(),
+    title: "Portable AC 1 Ton",
+    brand: "Blueair",
+    model: "P100",
+    capacity: "1",
+    price: 18999,
+    qty: 5,
+    desc: "Mobile cooling solution with dehumidifier function and easy installation.",
+    images: ["https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/901532f9-3b1f-45c1-a1ff-f74681b3c877.png"]
+  }
+];
+
+// LocalStorage keys
+const LS_PRODUCTS = "a2z_products_v1";
+const LS_CART = "a2z_cart_v1";
+const LS_USERS = "a2z_users_v1"; // simple user store
+const ADMIN_EMAIL = "admin@a2z.com";
+const ADMIN_PASSWORD = "admin123";
+
+let products = loadProducts();
+let cart = loadCart();
+let currentUser = null;
+let simulatedOtp = null;
+
+/* ---------------------------
+   UTILITIES
+   --------------------------- */
+function generateId() { return 'p_' + Math.random().toString(36).slice(2,9); }
+function loadProducts(){
+  const raw = localStorage.getItem(LS_PRODUCTS);
+  if(!raw){
+    localStorage.setItem(LS_PRODUCTS, JSON.stringify(defaultProducts));
+    return defaultProducts;
+  }
+  try { return JSON.parse(raw); } catch(e){ localStorage.setItem(LS_PRODUCTS, JSON.stringify(defaultProducts)); return defaultProducts; }
+}
+function saveProducts(){ localStorage.setItem(LS_PRODUCTS, JSON.stringify(products)); }
+function loadCart(){ try { return JSON.parse(localStorage.getItem(LS_CART) || "[]"); } catch(e){ return []; } }
+function saveCart(){ localStorage.setItem(LS_CART, JSON.stringify(cart)); updateCartUI(); }
+function formatCurrency(n){ return Number(n).toLocaleString('en-IN'); }
+
+/* ---------------------------
+   RENDER PRODUCTS GRID
+   --------------------------- */
+const productsGrid = document.getElementById('products-grid');
+function renderProducts(){
+  productsGrid.innerHTML = "";
+  products.forEach(p => {
+    const card = document.createElement('div');
+    card.className = "bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition";
+    const img = p.images && p.images[0] ? p.images[0] : "";
+    card.innerHTML = `
+      <img src="${img}" alt="${p.title}" class="w-full h-64 object-cover bg-gray-100">
+      <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">${p.title}</h3>
+        <div class="flex items-center mb-3">
+          <span class="text-yellow-400 mr-1"><i class="fas fa-star"></i></span>
+          <span>4.${Math.floor(Math.random()*3+3)} (${Math.floor(Math.random()*200)})</span>
+        </div>
+        <p class="text-gray-600 mb-4">${p.desc}</p>
+        <div class="flex justify-between items-center">
+          <span class="text-2xl font-bold">₹${formatCurrency(p.price)}</span>
+          <div class="flex gap-2">
+            <button class="add-to-cart bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700" data-id="${p.id}">Add to Cart</button>
+            <button class="view-details bg-gray-200 text-gray-800 px-3 py-2 rounded" data-id="${p.id}">View</button>
+          </div>
+        </div>
+      </div>
+    `;
+    productsGrid.appendChild(card);
+  });
+  // attach handlers
+  document.querySelectorAll('.add-to-cart').forEach(b => b.addEventListener('click', e => {
+    const id = e.currentTarget.dataset.id; openProductModal(id, true);
+  }));
+  document.querySelectorAll('.view-details').forEach(b => b.addEventListener('click', e => {
+    const id = e.currentTarget.dataset.id; openProductModal(id, false);
+  }));
+}
+
+/* ---------------------------
+   PRODUCT MODAL
+   --------------------------- */
+const productModal = document.getElementById('product-modal');
+const pmTitle = document.getElementById('product-modal-title');
+const pmDesc = document.getElementById('product-modal-desc');
+const pmPrice = document.getElementById('product-modal-price');
+const pmBrand = document.getElementById('product-modal-brand');
+const pmModel = document.getElementById('product-modal-model');
+const pmCapacity = document.getElementById('product-modal-capacity');
+const pmQty = document.getElementById('product-modal-qty');
+const pmImages = document.getElementById('product-modal-images');
+const addToCartBtn = document.getElementById('add-to-cart-btn');
+const productQtyAdd = document.getElementById('product-qty-add');
+const viewCartAfterAddBtn = document.getElementById('view-cart-after-add');
+
+let currentModalProduct = null;
+
+function openProductModal(id, openAddQuantity){
+  const p = products.find(x => x.id === id); if(!p) return;
+  currentModalProduct = p;
+  pmTitle.textContent = p.title;
+  pmDesc.textContent = p.desc;
+  pmPrice.textContent = p.price;
+  pmBrand.textContent = p.brand;
+  pmModel.textContent = p.model;
+  pmCapacity.textContent = p.capacity;
+  pmQty.textContent = p.qty;
+  pmImages.innerHTML = "";
+  if((p.images||[]).length === 0){
+    pmImages.innerHTML = `<div class="h-64 w-full bg-gray-100 flex items-center justify-center text-gray-400">No image</div>`;
+  } else {
+    p.images.forEach(src=>{
+      const i = document.createElement('img'); i.src = src; i.className = "w-full h-48 object-contain border";
+      pmImages.appendChild(i);
+    });
+  }
+  productQtyAdd.value = 1;
+  addToCartBtn.dataset.id = p.id;
+  viewCartAfterAddBtn.classList.add('hidden');
+  if(openAddQuantity) {
+    addToCartBtn.textContent = "Add to Cart";
+  } else {
+    addToCartBtn.textContent = "Add to Cart";
+  }
+  productModal.classList.remove('hidden');
+  productModal.style.display = "flex";
+}
+
+document.getElementById('close-product-modal').addEventListener('click', ()=>{
+  productModal.classList.add('hidden');
+  productModal.style.display = "none";
+});
+
+addToCartBtn.addEventListener('click', ()=>{
+  const qty = parseInt(productQtyAdd.value) || 1;
+  if(!currentModalProduct) return;
+  addToCart(currentModalProduct.id, qty);
+  viewCartAfterAddBtn.classList.remove('hidden');
+  updateCartUI();
+});
+
+viewCartAfterAddBtn.addEventListener('click', () => { openCart(); productModal.classList.add('hidden'); productModal.style.display = "none"; });
+
+/* ---------------------------
+   CART FUNCTIONS & UI
+   --------------------------- */
+function addToCart(productId, qty=1){
+  const p = products.find(x => x.id === productId);
+  if(!p) return alert("Product not found");
+  const existing = cart.find(i => i.id === productId);
+  if(existing){
+    existing.qty = Math.min(p.qty, existing.qty + qty);
+  } else {
+    cart.push({ id: productId, qty: Math.min(qty, p.qty) });
+  }
+  saveCart();
+  showToast("Added to cart");
+}
+
+function updateCartUI(){
+  const cartCountEl = document.getElementById('cart-count');
+  const cartItemsEl = document.getElementById('cart-items');
+  cartCountEl.textContent = cart.reduce((s,i)=>s+i.qty,0);
+  cartItemsEl.innerHTML = "";
+  let subtotal = 0;
+  cart.forEach(item => {
+    const p = products.find(x => x.id === item.id);
+    if(!p) return;
+    const row = document.createElement('div');
+    row.className = "flex items-center gap-3";
+    row.innerHTML = `
+      <img src="${(p.images && p.images[0])||''}" class="w-16 h-12 object-cover bg-gray-100 rounded" />
+      <div class="flex-1">
+        <div class="font-medium">${p.title}</div>
+        <div class="text-sm text-gray-600">₹${formatCurrency(p.price)} x ${item.qty}</div>
+      </div>
+      <div class="flex flex-col items-end gap-1">
+        <div class="text-sm font-semibold">₹${formatCurrency(p.price * item.qty)}</div>
+        <div class="flex gap-1">
+          <button class="decrease text-gray-500 px-2" data-id="${item.id}">-</button>
+          <button class="increase text-gray-500 px-2" data-id="${item.id}">+</button>
+          <button class="remove text-red-500 px-2" data-id="${item.id}">Remove</button>
+        </div>
+      </div>
+    `;
+    cartItemsEl.appendChild(row);
+    subtotal += p.price * item.qty;
+  });
+
+  document.getElementById('cart-subtotal').textContent = formatCurrency(subtotal);
+  // attach small buttons
+  cartItemsEl.querySelectorAll('.decrease').forEach(b => b.addEventListener('click', e=>{
+    const id = e.currentTarget.dataset.id; const it = cart.find(c=>c.id===id); if(!it) return;
+    it.qty = Math.max(1, it.qty - 1); saveCart();
+  }));
+  cartItemsEl.querySelectorAll('.increase').forEach(b => b.addEventListener('click', e=>{
+    const id = e.currentTarget.dataset.id; const it = cart.find(c=>c.id===id); if(!it) return;
+    const p = products.find(x=>x.id===id); if(!p) return;
+    it.qty = Math.min(p.qty, it.qty + 1); saveCart();
+  }));
+  cartItemsEl.querySelectorAll('.remove').forEach(b => b.addEventListener('click', e=>{
+    const id = e.currentTarget.dataset.id; cart = cart.filter(c=>c.id!==id); saveCart();
+  }));
+}
+
+/* CART PANEL open/close */
+const cartPanel = document.getElementById('cart-panel');
+document.getElementById('open-cart').addEventListener('click', openCart);
+document.getElementById('open-cart').addEventListener('keydown', openCart);
+function openCart(){ cartPanel.classList.toggle('hidden'); updateCartUI(); }
+document.getElementById('close-cart').addEventListener('click', ()=>cartPanel.classList.add('hidden'));
+document.getElementById('checkout-btn').addEventListener('click', ()=>{ if(cart.length===0){ alert('Cart is empty'); return; } openCheckout(); });
+
+/* ---------------------------
+   CHECKOUT + OTP (SIMULATED)
+   --------------------------- */
+const checkoutModal = document.getElementById('checkout-modal');
+const startOtpBtn = document.getElementById('start-otp-btn');
+const otpSection = document.getElementById('otp-section');
+const verifyOtpBtn = document.getElementById('verify-otp-btn');
+const resendOtpBtn = document.getElementById('resend-otp-btn');
+
+function openCheckout(){
+  checkoutModal.classList.remove('hidden'); checkoutModal.style.display='flex';
+  otpSection.classList.add('hidden');
+  simulatedOtp = null;
+}
+
+document.getElementById('close-checkout').addEventListener('click', ()=>{ checkoutModal.classList.add('hidden'); checkoutModal.style.display='none'; });
+
+startOtpBtn.addEventListener('click', () => {
+  const phone = document.getElementById('checkout-phone').value.trim();
+  const name = document.getElementById('checkout-name').value.trim();
+  const addr = document.getElementById('checkout-address').value.trim();
+  const email = document.getElementById('checkout-email').value.trim();
+  if(!name || !phone || !addr || !email){ alert('Please fill all fields'); return; }
+  // simulate sending OTP
+  simulatedOtp = Math.floor(100000 + Math.random()*900000).toString();
+  // In production: send OTP via SMS gateway from backend
+  console.log("DEMO OTP (send via SMS in production):", simulatedOtp);
+  alert("Demo OTP sent (check console)"); // for demo
+  otpSection.classList.remove('hidden');
+});
+
+verifyOtpBtn.addEventListener('click', ()=>{
+  const entered = document.getElementById('checkout-otp').value.trim();
+  if(!simulatedOtp) return alert('OTP not sent');
+  if(entered === simulatedOtp){
+    // proceed to payment page
+    checkoutModal.classList.add('hidden'); checkoutModal.style.display='none';
+    simulatedOtp = null;
+    openPaymentPage();
+  } else {
+    alert('Incorrect OTP');
+  }
+});
+
+resendOtpBtn.addEventListener('click', ()=>{
+  if(!document.getElementById('checkout-phone').value) return alert('Add phone first');
+  simulatedOtp = Math.floor(100000 + Math.random()*900000).toString();
+  console.log("Resent DEMO OTP:", simulatedOtp);
+  alert("Demo OTP resent (check console)");
+});
+
+/* ---------------------------
+   PAYMENT PAGE (DEMO)
+   --------------------------- */
+const paymentPage = document.getElementById('payment-page');
+function openPaymentPage(){
+  // fill order summary
+  const summaryDiv = document.getElementById('payment-order-summary');
+  let subtotal = 0;
+  summaryDiv.innerHTML = "";
+  cart.forEach(item => {
+    const p = products.find(x => x.id === item.id);
+    if(!p) return;
+    const line = document.createElement('div');
+    line.className = "flex justify-between";
+    line.innerHTML = `<div>${p.title} x ${item.qty}</div><div>₹${formatCurrency(p.price * item.qty)}</div>`;
+    summaryDiv.appendChild(line);
+    subtotal += p.price * item.qty;
+  });
+  const totalLine = document.createElement('div'); totalLine.className="flex justify-between font-bold mt-3"; totalLine.innerHTML = `<div>Total</div><div>₹${formatCurrency(subtotal)}</div>`;
+  summaryDiv.appendChild(totalLine);
+
+  paymentPage.classList.remove('hidden');
+  paymentPage.style.display = "block";
+}
+document.getElementById('close-payment').addEventListener('click', ()=>{ paymentPage.classList.add('hidden'); paymentPage.style.display='none'; });
+document.getElementById('complete-payment').addEventListener('click', ()=>{
+  // Demo: clear cart and show success
+  cart = []; saveCart();
+  alert('Payment completed (demo). Order placed!');
+  paymentPage.classList.add('hidden'); paymentPage.style.display='none';
+});
+
+/* ---------------------------
+   SIGNUP / SIGNIN (simple local users)
+   --------------------------- */
+function loadUsers(){ try { return JSON.parse(localStorage.getItem(LS_USERS) || "[]"); } catch(e){ return []; } }
+function saveUsers(u){ localStorage.setItem(LS_USERS, JSON.stringify(u)); }
+document.getElementById('open-signin').addEventListener('click', ()=>{ openSignin(); });
+document.getElementById('open-signup').addEventListener('click', ()=>{ openSignup(); });
+document.getElementById('open-signin-mobile').addEventListener('click', ()=>{ openSignin(); document.getElementById('mobile-menu').classList.add('hidden'); });
+document.getElementById('open-signup-mobile').addEventListener('click', ()=>{ openSignup(); document.getElementById('mobile-menu').classList.add('hidden'); });
+
+function openSignin(){ document.getElementById('signin-modal').classList.remove('hidden'); document.getElementById('signin-modal').style.display='flex'; }
+function openSignup(){ document.getElementById('signup-modal').classList.remove('hidden'); document.getElementById('signup-modal').style.display='flex'; }
+
+document.getElementById('close-signin').addEventListener('click', ()=>{ document.getElementById('signin-modal').classList.add('hidden'); });
+document.getElementById('close-signup').addEventListener('click', ()=>{ document.getElementById('signup-modal').classList.add('hidden'); });
+
+document.getElementById('signup-submit').addEventListener('click', ()=>{
+  const name = document.getElementById('signup-name').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const pass = document.getElementById('signup-password').value.trim();
+  if(!name || !email || !pass) return alert('Fill all fields');
+  const users = loadUsers();
+  if(users.find(u=>u.email===email)) return alert('Email already exists');
+  users.push({ name, email, pass });
+  saveUsers(users);
+  alert('Account created. Please sign in.');
+  document.getElementById('signup-modal').classList.add('hidden');
+});
+
+document.getElementById('signin-submit').addEventListener('click', ()=>{
+  const email = document.getElementById('signin-email').value.trim();
+  const pass = document.getElementById('signin-password').value.trim();
+  const users = loadUsers();
+  const user = users.find(u=>u.email===email && u.pass===pass);
+  if(user){
+    currentUser = user;
+    alert('Signed in as ' + user.name);
+    document.getElementById('signin-modal').classList.add('hidden');
+  } else {
+    alert('Invalid credentials');
+  }
+});
+
+document.getElementById('open-signup-from-signin').addEventListener('click', ()=>{ document.getElementById('signin-modal').classList.add('hidden'); openSignup(); });
+document.getElementById('open-signin-from-signup').addEventListener('click', ()=>{ document.getElementById('signup-modal').classList.add('hidden'); openSignin(); });
+
+/* ---------------------------
+   ADMIN LOGIN & DASHBOARD
+   --------------------------- */
+document.getElementById('open-admin-login').addEventListener('click', ()=>{ document.getElementById('admin-login-modal').classList.remove('hidden'); document.getElementById('admin-login-modal').style.display='flex'; });
+document.getElementById('close-admin-login').addEventListener('click', ()=>{ document.getElementById('admin-login-modal').classList.add('hidden'); });
+
+document.getElementById('admin-login-submit').addEventListener('click', ()=>{
+  const email = document.getElementById('admin-email').value.trim();
+  const pass = document.getElementById('admin-password').value.trim();
+  if(email === ADMIN_EMAIL && pass === ADMIN_PASSWORD){
+    // open admin page
+    document.getElementById('admin-login-modal').classList.add('hidden');
+    openAdminPage();
+  } else {
+    alert('Invalid admin credentials (demo). Use admin@a2z.com / admin123');
+  }
+});
+
+const adminPage = document.getElementById('admin-page');
+function openAdminPage(){
+  adminPage.classList.remove('hidden'); adminPage.style.display='block';
+  renderAdminProducts();
+  clearAdminForm();
+}
+document.getElementById('close-admin-page').addEventListener('click', ()=>{ adminPage.classList.add('hidden'); });
+document.getElementById('admin-logout').addEventListener('click', ()=>{ adminPage.classList.add('hidden'); alert('Logged out'); });
+
+/* Admin: image preview */
+document.getElementById('admin-image').addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){ document.getElementById('admin-image-preview').innerHTML = `<img src="${ev.target.result}" class="w-32 h-24 object-cover border" />`; document.getElementById('admin-image-preview').dataset.src = ev.target.result; };
+  reader.readAsDataURL(file);
+});
+
+/* Admin save product */
+document.getElementById('admin-save-product').addEventListener('click', ()=>{
+  const id = document.getElementById('admin-prod-id').value;
+  const title = document.getElementById('admin-title').value.trim();
+  const brand = document.getElementById('admin-brand').value.trim();
+  const model = document.getElementById('admin-model').value.trim();
+  const capacity = document.getElementById('admin-capacity').value.trim();
+  const price = Number(document.getElementById('admin-price').value || 0);
+  const qty = Number(document.getElementById('admin-qty').value || 0);
+  const desc = document.getElementById('admin-desc').value.trim();
+  const imageSrc = document.getElementById('admin-image-preview').dataset.src || null;
+  if(!title) return alert('Title required');
+  if(id){
+    // edit
+    const p = products.find(x=>x.id===id);
+    if(!p) return alert('Product not found');
+    p.title=title; p.brand=brand; p.model=model; p.capacity=capacity; p.price=price; p.qty=qty; p.desc=desc;
+    if(imageSrc) p.images = [imageSrc];
+    saveProducts();
+    renderProducts(); renderAdminProducts(); clearAdminForm(); alert('Product updated');
+  } else {
+    // add new
+    const newP = { id: generateId(), title, brand, model, capacity, price, qty, desc, images: imageSrc ? [imageSrc] : [] };
+    products.unshift(newP);
+    saveProducts();
+    renderProducts(); renderAdminProducts(); clearAdminForm(); alert('Product added');
+  }
+});
+
+function clearAdminForm(){
+  document.getElementById('admin-prod-id').value = "";
+  document.getElementById('admin-title').value = "";
+  document.getElementById('admin-brand').value = "";
+  document.getElementById('admin-model').value = "";
+  document.getElementById('admin-capacity').value = "";
+  document.getElementById('admin-price').value = "";
+  document.getElementById('admin-qty').value = "";
+  document.getElementById('admin-desc').value = "";
+  document.getElementById('admin-image').value = "";
+  document.getElementById('admin-image-preview').innerHTML = "";
+  delete document.getElementById('admin-image-preview').dataset.src;
+}
+
+function renderAdminProducts(){
+  const list = document.getElementById('admin-products-list');
+  list.innerHTML = "";
+  products.forEach(p=>{
+    const el = document.createElement('div'); el.className="p-3 border rounded flex items-center gap-3";
+    el.innerHTML = `
+      <img src="${(p.images&&p.images[0])||''}" class="w-16 h-12 object-cover bg-gray-100 rounded"/>
+      <div class="flex-1">
+        <div class="font-medium">${p.title}</div>
+        <div class="text-sm text-gray-600">₹${formatCurrency(p.price)} • Qty: ${p.qty}</div>
+      </div>
+      <div class="flex flex-col gap-1">
+        <button class="admin-edit bg-blue-600 text-white px-2 py-1 rounded" data-id="${p.id}">Edit</button>
+        <button class="admin-delete bg-red-500 text-white px-2 py-1 rounded" data-id="${p.id}">Delete</button>
+      </div>
+    `;
+    list.appendChild(el);
+  });
+  // handlers
+  document.querySelectorAll('.admin-edit').forEach(b=>{
+    b.addEventListener('click', e=>{
+      const id = e.currentTarget.dataset.id; const p = products.find(x=>x.id===id); if(!p) return;
+      document.getElementById('admin-prod-id').value = p.id;
+      document.getElementById('admin-title').value = p.title;
+      document.getElementById('admin-brand').value = p.brand;
+      document.getElementById('admin-model').value = p.model;
+      document.getElementById('admin-capacity').value = p.capacity;
+      document.getElementById('admin-price').value = p.price;
+      document.getElementById('admin-qty').value = p.qty;
+      document.getElementById('admin-desc').value = p.desc;
+      if(p.images && p.images[0]){ document.getElementById('admin-image-preview').innerHTML = `<img src="${p.images[0]}" class="w-32 h-24 object-cover border" />`; document.getElementById('admin-image-preview').dataset.src = p.images[0]; } else { document.getElementById('admin-image-preview').innerHTML=""; }
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+  document.querySelectorAll('.admin-delete').forEach(b=>{
+    b.addEventListener('click', e=>{
+      const id = e.currentTarget.dataset.id;
+      if(!confirm('Delete this product?')) return;
+      products = products.filter(x=>x.id!==id);
+      saveProducts(); renderProducts(); renderAdminProducts();
+    });
+  });
+}
+
+/* ---------------------------
+   SELL FORM submission (user listing their AC)
+   --------------------------- */
+document.getElementById('sell-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  const title = `${document.getElementById('brand').value || 'Used AC'} ${document.getElementById('model').value || ''}`.trim();
+  const brand = document.getElementById('brand').value.trim();
+  const model = document.getElementById('model').value.trim();
+  const capacity = document.getElementById('capacity').value || '1';
+  const price = Number(document.getElementById('price').value || 0);
+  const year = document.getElementById('year').value || '';
+  const desc = document.getElementById('description').value || '';
+  const contact = document.getElementById('contact').value || '';
+  // handle photos - read first image only for demo
+  const fileInput = document.getElementById('photos');
+  const file = fileInput.files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      const newP = { id: generateId(), title, brand, model, capacity, price, qty: 1, desc: `${desc} (Seller contact: ${contact}; Year: ${year})`, images: [ev.target.result] };
+      products.unshift(newP); saveProducts(); renderProducts();
+      alert('Your AC has been submitted for sale (demo). Admin can review and publish.');
+      document.getElementById('sell-form').reset();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    const newP = { id: generateId(), title, brand, model, capacity, price, qty: 1, desc: `${desc} (Seller contact: ${contact}; Year: ${year})`, images: [] };
+    products.unshift(newP); saveProducts(); renderProducts();
+    alert('Your AC has been submitted for sale (demo). Admin can review and publish.');
+    document.getElementById('sell-form').reset();
+  }
+});
+
+/* ---------------------------
+   CHATBOT small behavior (unchanged)
+   --------------------------- */
+document.getElementById('toggle-chatbot').addEventListener('click', toggleChatbotVisibility);
+document.getElementById('chatbot-button').addEventListener('click', toggleChatbotVisibility);
+function toggleChatbotVisibility(){
+  const c = document.getElementById('chatbot-container');
+  c.classList.toggle('chatbot-hidden'); c.classList.toggle('chatbot-visible');
+}
+const aiResponses = {
+  "not cooling": "For AC not cooling: 1. Check filter. 2. Thermostat. 3. Outdoor unit running. If not, call technician.",
+  "water leaking": "Water leakage could be due to clogged drain or installation angle. Check filter and drain.",
+  "noise": "Noises may indicate loose parts or debris. Turn off and call a technician if noise persists.",
+  "not turning on": "Check circuit breaker, remote batteries, and power switch. Call technician if unresolved."
+};
+document.getElementById('send-message').addEventListener('click', sendChat);
+document.getElementById('chat-input').addEventListener('keypress', (e)=>{ if(e.key==='Enter') sendChat(); });
+function sendChat(){
+  const txt = document.getElementById('chat-input').value.trim(); if(!txt) return;
+  addChatMessage('user', txt); document.getElementById('chat-input').value='';
+  setTimeout(()=> {
+    const msg = txt.toLowerCase();
+    let res = "I'm sorry, I couldn't understand your issue. Our technician will contact you shortly.";
+    Object.keys(aiResponses).forEach(k => { if(msg.includes(k)) res = aiResponses[k]; });
+    addChatMessage('bot', res);
+  }, 600);
+}
+function addChatMessage(sender, text){
+  const chatMessages = document.getElementById('chat-messages');
+  const d = document.createElement('div'); d.classList.add('chatbot-message','rounded-lg','p-3','mb-3','max-w-xs');
+  if(sender==='user'){ d.classList.add('bg-gray-200','ml-auto','text-gray-900'); } else { d.classList.add('bg-blue-100','text-blue-900'); }
+  d.innerHTML = `<p>${text}</p>`; chatMessages.appendChild(d); chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+/* ---------------------------
+   INITIAL RENDER & UI hookups
+   --------------------------- */
+renderProducts(); updateCartUI();
+
+/* Mobile menu */
+document.getElementById('menu-toggle').addEventListener('click', ()=> document.getElementById('mobile-menu').classList.toggle('hidden'));
+
+/* Small helpers */
+function showToast(msg){ console.log('TOAST:', msg); }
+
+/* Update products when changed by admin or selling; watch localStorage storage event to refresh if multiple tabs */
+window.addEventListener('storage', (e)=>{
+  if(e.key === LS_PRODUCTS){ products = loadProducts(); renderProducts(); renderAdminProducts(); }
+});
+
+/* Make sure cart UI updates on page load */
+updateCartUI();
+
+/* small helper to open signin/signup from mobile */
+document.getElementById('open-signin-mobile').addEventListener('click', ()=> document.getElementById('mobile-menu').classList.add('hidden'));
+
+/* small guard: when trying to checkout without items */
+document.getElementById('checkout-btn').addEventListener('click', ()=> {
+  if(cart.length===0) alert('Your cart is empty');
+});
+
+/* End script */
+</script>
+</body>
+</html>

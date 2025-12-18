@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>A2z Power Solution</title>
+  <meta name="theme-color" content="#0b1220">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="topbar glass">
+    <div class="brand">
+      <img src="A2z Logo.png" alt="A2z Logo" class="logo" />
+      <div>
+        <h1>A2z Power Solution</h1>
+        <p class="sub">Electrical & Construction Services</p>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button id="products-btn" class="nav-btn">Products</button>
+      <button id="admin-open" class="nav-btn">Admin</button>
+      <button id="contact-btn" class="nav-btn">Contact</button>
+      <button id="help-btn" class="nav-btn">Help</button>
+      <button id="invoice-btn" class="nav-btn">Invoice</button>
+    </nav>
+  </header>
+
+  <!-- CENTERED CONTENT -->
+  <main class="container center">
+    <h2>Welcome to A2z Power Solution</h2>
+    <p>Explore our services and products below.</p>
+
+    <div class="center-btns">
+      <button id="services-btn" class="nav-btn big primary">Services</button>
+    </div>
+  </main>
+
+
+
+  <!-- CONTACT POPUP -->
+  <div id="contact-overlay" class="overlay">
+    <div class="popup premium-popup">
+      <h3>Contact Us</h3>
+
+      <div class="contact-grid">
+        <a class="contact-item" href="https://wa.me/917011196579" target="_blank">
+          <div class="icon">💬</div>
+          <div><strong>WhatsApp</strong> <div>7011196579</div></div>
+        </a>
+
+        <a class="contact-item" href="mailto:A2zPowerSolutionpvt@gmail.com">
+          <div class="icon">✉️</div>
+          <div><strong>Email</strong> <div>A2zPowerSolutionpvt@gmail.com</div></div>
+        </a>
+
+        <a class="contact-item" href="tel:7011196579">
+          <div class="icon">📞</div>
+          <div><strong>Call</strong> <div>7011196579</div></div>
+        </a>
+      </div>
+
+      <button class="btn close-btn" id="contact-close">Close</button>
+    </div>
+  </div>
+
+
+  <!-- NEW PRODUCTS POPUP -->
+  <div id="products-overlay" class="overlay">
+    <div class="popup premium-popup">
+      <h3>Product Categories</h3>
+
+      <div class="service-grid">
+
+        <a class="service-card" href="products-ac.html">Air Conditioner Products</a>
+        <a class="service-card" href="products-fridge.html">Refrigerator Products</a>
+        <a class="service-card" href="products-generator.html">Generator Products</a>
+        <a class="service-card" href="products-electrical.html">Electrical Products</a>
+        <a class="service-card" href="products-construction.html">Construction Products</a>
+
+      </div>
+
+      <button class="btn close-btn" id="products-close">Close</button>
+    </div>
+  </div>
+
+
+
+  <!-- SERVICES POPUP (AC + Fridge moved here) -->
+  <div id="services-overlay" class="overlay">
+    <div class="popup premium-popup">
+      <h3>Services</h3>
+
+      <div class="service-grid">
+        <a class="service-card" href="electrical.html">Electrical</a>
+        <a class="service-card" href="ac.html">Air Conditioner</a>
+        <a class="service-card" href="fridge.html">Refrigerator</a>
+        <a class="service-card" href="plumber.html">Plumber</a>
+        <a class="service-card" href="carpenter.html">Carpenter</a>
+        <a class="service-card" href="paint.html">Paint</a>
+        <a class="service-card" href="generator.html">Generator</a>
+        <a class="service-card" href="construction.html">Construction</a>
+      </div>
+
+      <button class="btn close-btn" id="services-close">Close</button>
+    </div>
+  </div>
+
+
+
+  <!-- SCRIPT -->
+  <script>
+    const contactBtn = document.getElementById('contact-btn');
+    const productsBtn = document.getElementById('products-btn');
+    const servicesBtn = document.getElementById('services-btn');
+    const adminOpen = document.getElementById('admin-open');
+
+    const contactOverlay = document.getElementById('contact-overlay');
+    const productsOverlay = document.getElementById('products-overlay');
+    const servicesOverlay = document.getElementById('services-overlay');
+
+    // OPEN POPUPS
+    contactBtn.addEventListener('click', () => open(contactOverlay));
+    productsBtn.addEventListener('click', () => open(productsOverlay));
+    servicesBtn.addEventListener('click', () => open(servicesOverlay));
+
+    adminOpen.addEventListener('click', () => location.href = 'admin.html');
+
+    // CLOSE POPUPS
+    document.getElementById('contact-close')
+      .addEventListener('click', () => close(contactOverlay));
+
+    document.getElementById('products-close')
+      .addEventListener('click', () => close(productsOverlay));
+
+    document.getElementById('services-close')
+      .addEventListener('click', () => close(servicesOverlay));
+
+    function open(el){
+      el.style.display = "flex";
+      setTimeout(()=> el.classList.add("overlay-open"), 10);
+    }
+    function close(el){
+      el.classList.remove("overlay-open");
+      setTimeout(()=> el.style.display = "none", 200);
+    }
+  </script>
+
+</body>
+</html>

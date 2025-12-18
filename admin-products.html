@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Manage Products | Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="admin.css">
+
+<style>
+.main{padding:30px;color:#fff}
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+.product-card{
+  background:rgba(255,255,255,.08);
+  padding:15px;
+  border-radius:14px;
+}
+.product-card img{
+  width:100%;
+  height:150px;
+  object-fit:contain;
+  background:#fff;
+  border-radius:10px;
+}
+input{
+  width:100%;
+  padding:8px;
+  margin-top:6px;
+  border-radius:8px;
+  border:none;
+}
+.btn{
+  padding:8px 12px;
+  margin-top:8px;
+  border-radius:8px;
+  cursor:pointer;
+  border:none;
+}
+.primary{background:#0078ff;color:#fff}
+.danger{background:#ff3b3b;color:#fff}
+</style>
+</head>
+
+<body>
+
+<div class="main">
+  <h1>📦 Manage Products</h1>
+  <p>Add / Edit / Delete products shown on frontend</p>
+
+  <button class="btn primary" onclick="addProduct()">➕ Add New Product</button>
+  <butoon class="btn" onclick="window.location='admin-dashboard.html'">🏠 Dashboard</button>
+
+  <div id="productGrid" class="product-grid"></div>
+</div>
+
+<script>
+/* ================= STORAGE ================= */
+const STORAGE_KEY = "a2z_products";
+
+/* ================= LOAD ================= */
+function loadProducts(){
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+}
+
+/* ================= SAVE ================= */
+function saveProducts(data){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  render();
+}
+
+/* ================= RENDER ================= */
+function render(){
+  const grid = document.getElementById("productGrid");
+  const products = loadProducts();
+  grid.innerHTML = "";
+
+  if(products.length === 0){
+    grid.innerHTML = "<p>No products found.</p>";
+    return;
+  }
+
+  products.forEach((p,i)=>{
+    grid.innerHTML += `
+      <div class="product-card">
+        <img src="${p.image}">
+        <input value="${p.name}" onchange="edit(${i},'name',this.value)">
+        <input type="number" value="${p.price}" onchange="edit(${i},'price',this.value)">
+        <input value="${p.image}" onchange="edit(${i},'image',this.value)">
+        <button class="btn danger" onclick="remove(${i})">Delete</button>
+      </div>
+    `;
+  });
+}
+
+/* ================= EDIT ================= */
+function edit(index,key,value){
+  const products = loadProducts();
+  products[index][key] = key === "price" ? Number(value) : value;
+  saveProducts(products);
+}
+
+/* ================= DELETE ================= */
+function remove(index){
+  if(!confirm("Delete this product?")) return;
+  const products = loadProducts();
+  products.splice(index,1);
+  saveProducts(products);
+}
+
+/* ================= ADD ================= */
+function addProduct(){
+  const products = loadProducts();
+  products.push({
+    name:"New Product",
+    price:0,
+    image:"https://via.placeholder.com/300"
+  });
+  saveProducts(products);
+}
+
+/* ================= INIT ================= */
+render();
+</script>
+
+</body>
+</html>

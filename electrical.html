@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Electrical Installation & Repair – A2z Power Solution</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- OPTIONAL: external CSS -->
+<link rel="stylesheet" href="styles.css">
+
+<style>
+/* fallback minimal styling if css missing */
+body{font-family:Poppins,Arial;background:#0b1220;color:#fff;text-align:center}
+.container{padding:20px}
+.service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:rgba(255,255,255,.12);padding:16px;border-radius:14px}
+.btn{padding:10px 16px;border-radius:10px;border:none;cursor:pointer}
+.primary{background:#0078ff;color:#fff}
+input{padding:6px;border-radius:6px;border:none;text-align:center}
+</style>
+</head>
+
+<body>
+
+<header class="container">
+  <h1>Electrical Services</h1>
+  <p>Installation & Repair Enquiry</p>
+
+  <button class="btn primary" onclick="showTab('install')">Installation</button>
+  <button class="btn" onclick="showTab('repair')">Repair</button>
+  <button class="btn" onclick="window.location='index.html'">Home</button>
+
+</header>
+
+<!-- ================= INSTALLATION ================= -->
+<section id="install" class="container" style="display:none">
+  <h2>Installation Price List</h2>
+
+  <div id="installList" class="service-grid"></div>
+</section>
+
+<!-- ================= REPAIR ================= -->
+<section id="repair" class="container" style="display:none">
+  <h2>Repair Service</h2>
+
+  <div class="card">
+    <h3>Electrical Repair Visit</h3>
+    <p>Visit Charge: <strong>₹300</strong></p>
+    <p>(After inspection product damage will be checked)</p>
+
+    <button class="btn primary" onclick="sendRepair()">Enquiry on WhatsApp</button>
+  </div>
+</section>
+
+<script>
+/* ================= DATA ================= */
+
+const WHATSAPP = "917011196579"; // without +
+
+const INSTALLATION_LIST = [
+  {name:"Electrical Board Fitting / Repair (6 Module)", price:50, unit:"Per Board"},
+  {name:"Electrical Board Fitting (9-12 Module)", price:120, unit:"Per Board"},
+  {name:"Electrical Wiring In Concealed", price:200, unit:"Per Point"},
+  {name:"Electrical Wiring In Open", price:60, unit:"Per Meter"},
+  {name:"Fan Installation", price:200, unit:"Per Fan"},
+  {name:"Geaser Installation", price:600, unit:"Per Geaser"},
+  {name:"TV Installation", price:499, unit:"Per TV"},
+  {name:"Light Installation", price:79, unit:"Per Light"},
+  {name:"MCB Installation", price:120, unit:"Per MCB"},
+  {name:"Inverter Installation", price:899, unit:"Per Inv"},
+  {name:"Inverter Point", price:100, unit:"Per Point"}
+];
+
+const VISIT_CHARGE = 300;
+
+/* ================= FUNCTIONS ================= */
+
+function showTab(id){
+  document.getElementById("install").style.display="none";
+  document.getElementById("repair").style.display="none";
+  document.getElementById(id).style.display="block";
+}
+
+function renderInstallation(){
+  const box = document.getElementById("installList");
+  box.innerHTML="";
+
+  INSTALLATION_LIST.forEach((item,i)=>{
+    box.innerHTML += `
+      <div class="card">
+        <h4>${item.name}</h4>
+        <p>₹${item.price} (${item.unit})</p>
+
+        <input type="number" id="qty${i}" min="1" value="1"><br><br>
+
+        <button class="btn" onclick="sendInstall(${i})">
+          Enquiry
+        </button>
+      </div>
+    `;
+  });
+}
+
+function sendInstall(index){
+  const item = INSTALLATION_LIST[index];
+  const qty = parseInt(document.getElementById("qty"+index).value || 1);
+  const total = Math.round(item.price * qty);
+
+  const msg = `Hi,
+I am enquiry about installation of ${item.name}
+Quantity: ${qty}
+Total Price: ₹${total}
+
+Thanks`;
+
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,"_blank");
+}
+
+function sendRepair(){
+  const msg = `Hi,
+I am enquiry about repair.
+Visit Charge: ₹${VISIT_CHARGE}
+(After inspection product damage will be checked)
+
+Thanks`;
+
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,"_blank");
+}
+
+/* ================= INIT ================= */
+renderInstallation();
+showTab('install');
+</script>
+<script>
+const WHATSAPP="917011196579";
+
+function loadServices(){
+  const d = JSON.parse(localStorage.getItem("a2z_services"));
+  return d?.electrical;
+}
+
+function renderInstall(){
+  const s = loadServices();
+  const box = document.getElementById("installList");
+  box.innerHTML="";
+
+  s.installation.forEach((x,i)=>{
+    box.innerHTML += `
+      <div class="card">
+        <h4>${x.name}</h4>
+        <p>₹${x.price} (${x.unit})</p>
+        <input type="number" id="q${i}" value="1" min="1">
+        <button class="btn" onclick="sendInstall(${i})">Enquiry</button>
+      </div>
+    `;
+  });
+}
+
+function sendInstall(i){
+  const s = loadServices();
+  const q = document.getElementById("q"+i).value;
+  const total = Math.round(s.installation[i].price*q);
+
+  const msg=`Hi,
+I am enquiry about installation of ${s.installation[i].name}
+Quantity: ${q}
+Total Price: ₹${total}
+
+Thanks`;
+
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`);
+}
+
+function sendRepair(){
+  const s = loadServices();
+  const msg=`Hi,
+I am enquiry about repair.
+Visit Charge: ₹${s.repairVisit}
+(After inspection product damage will be checked)
+
+Thanks`;
+
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`);
+}
+
+renderInstall();
+</script>
+
+
+</body>
+</html>
