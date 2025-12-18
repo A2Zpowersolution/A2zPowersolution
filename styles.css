@@ -196,3 +196,27 @@ body {
     font-size: 18px;
   }
 }
+/* ===== BACKGROUND VIDEO ===== */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Dark overlay so text readable */
+.video-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+/* Ensure content stays above video */
+body > * {
+  position: relative;
+  z-index: 2;
+}
