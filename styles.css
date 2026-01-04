@@ -11,6 +11,7 @@ body {
   color: #fff;
   overflow-x: hidden;
   text-align: center;
+  font-size: 15px;
 }
 
 /* === GLASS EFFECT === */
@@ -29,12 +30,6 @@ body {
   position: sticky;
   top: 0;
   z-index: 200;
-  animation: slideDown 0.4s ease;
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .brand {
@@ -49,12 +44,6 @@ body {
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  animation: popIn 0.6s ease;
-}
-
-@keyframes popIn {
-  from { transform: scale(0.7); opacity: 0 }
-  to { transform: scale(1); opacity: 1 }
 }
 
 /* === CENTER CONTENT === */
@@ -72,46 +61,37 @@ body {
   margin-bottom: 25px;
 }
 
-/* === BIG BUTTONS (Products, Services) === */
-.center-btns {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 15px;
-}
-
-.big {
-  font-size: 20px;
-  padding: 16px 28px;
-  border-radius: 14px;
-}
-
-/* === GLASS BUTTON STYLES === */
-.nav-btn, .btn, .service-card, .card {
+/* === BUTTONS === */
+.nav-btn, .btn, .card {
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(10px);
   padding: 10px 16px;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.18);
-  color: #fff;   /* FIXED TEXT COLOR */
+  color: #fff;
   cursor: pointer;
-  transition: 0.3s;
-  text-decoration: none;
+  transition: 0.25s;
 }
 
-.nav-btn:hover, .btn:hover, .service-card:hover, .card:hover {
-  transform: translateY(-4px) scale(1.03);
-  background: rgba(255,255,255,0.22);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+.btn:active, .nav-btn:active {
+  transform: scale(0.96);
 }
 
-/* Primary button */
-.primary {
-  background: linear-gradient(135deg, #0078ff, #005dcc);
-  border: none;
+/* === GRIDS === */
+.product-grid,
+.service-grid,
+.contact-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
-/* === POPUPS === */
+.card {
+  padding: 18px;
+  border-radius: 14px;
+}
+
+/* === POPUP === */
 .overlay {
   position: fixed;
   inset: 0;
@@ -119,11 +99,10 @@ body {
   justify-content: center;
   align-items: center;
   background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(6px);
 }
 
 .overlay-open {
-  display: flex !important;
+  display: flex;
 }
 
 .popup {
@@ -131,60 +110,48 @@ body {
   max-width: 600px;
   padding: 25px;
   border-radius: 18px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255,255,255,0.19);
-  animation: popupShow 0.35s ease;
 }
 
-@keyframes popupShow {
-  from { transform: translateY(40px) scale(0.9); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
+/* === BACKGROUND VIDEO === */
+#bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
 }
 
-/* Close button spacing */
-.close-btn {
-  margin-top: 25px;
-  padding: 12px 25px;
+.video-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: -1;
 }
 
-/* === GRIDS === */
-.contact-grid,
-.product-grid,
-.service-grid {
-  display: grid;
-  gap: 16px;
-}
+/* ================= MOBILE OPTIMIZATION ================= */
+@media (max-width: 768px) {
 
-.contact-grid {
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-
-.product-grid {
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-
-.service-grid {
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-}
-
-/* Cards */
-.card, .service-card {
-  padding: 18px;
-  border-radius: 14px;
-}
-
-/* Mobile Responsive */
-@media (max-width: 600px) {
-
-  .center-btns {
-    flex-direction: column;
-    gap: 14px;
+  body {
+    font-size: 14px;
   }
 
-  .big {
-    width: 80%;
-    margin: auto;
+  .topbar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .nav-btn {
+    font-size: 14px;
+    padding: 8px 12px;
   }
 
   .logo {
@@ -195,28 +162,24 @@ body {
   .brand h1 {
     font-size: 18px;
   }
-}
-/* ===== BACKGROUND VIDEO ===== */
-#bg-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
-}
 
-/* Dark overlay so text readable */
-.video-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  z-index: -1;
-}
+  .product-grid,
+  .service-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
 
-/* Ensure content stays above video */
-body > * {
-  position: relative;
-  z-index: 2;
+  .btn {
+    width: 100%;
+  }
+
+  .popup {
+    width: 95%;
+    padding: 18px;
+  }
+
+  #admin-panel {
+    width: 100%;
+    right: 0;
+  }
 }
