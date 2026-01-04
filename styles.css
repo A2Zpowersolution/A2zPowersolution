@@ -13,27 +13,6 @@ body {
   overflow-x: hidden;
   text-align: center;
   line-height: 1.6;
-  cursor: none; /* hide default cursor for glow */
-}
-
-/* ================= CURSOR GLOW (PC/LAPTOP) ================= */
-body::before {
-  content: "";
-  position: fixed;
-  top: var(--y, 50%);
-  left: var(--x, 50%);
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(
-    circle,
-    rgba(0,120,255,0.35) 0%,
-    rgba(0,120,255,0.15) 35%,
-    transparent 70%
-  );
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 1;
-  transition: top 0.04s linear, left 0.04s linear;
 }
 
 /* ================= GLASS EFFECT ================= */
@@ -81,7 +60,7 @@ body::before {
   to { transform: scale(1); opacity: 1; }
 }
 
-/* ================= CENTER CONTENT ================= */
+/* ================= CENTER ================= */
 .container.center {
   margin-top: 40px;
   padding: 0 14px;
@@ -97,16 +76,20 @@ body::before {
   margin-bottom: 25px;
 }
 
-/* ================= BUTTONS (MASTER GLASS STYLE) ================= */
+/* ================= BUTTONS (MASTER GLASS) ================= */
 .nav-btn,
 .btn,
 .card,
 .service-card {
+  position: relative;
+  overflow: visible;
+
   background: rgba(255,255,255,0.12) !important;
   backdrop-filter: blur(10px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   border: 1px solid rgba(255,255,255,0.18) !important;
   color: #fff !important;
+
   padding: 10px 16px;
   border-radius: 12px;
   cursor: pointer;
@@ -123,9 +106,70 @@ body::before {
   box-shadow: 0 12px 25px rgba(0,0,0,0.45);
 }
 
+/* ================= EDGE GLOW (CLICK) ================= */
+.nav-btn::before,
+.btn::before,
+.card::before,
+.service-card::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  filter: blur(16px);
+  opacity: 0;
+  z-index: -1;
+}
+
+/* Default blue glow */
+.nav-btn::before,
+.btn::before,
+.card::before {
+  background: linear-gradient(
+    135deg,
+    rgba(0,120,255,0.9),
+    rgba(0,180,255,0.6),
+    rgba(0,120,255,0.9)
+  );
+}
+
+/* Success glow */
+.btn.success::before {
+  background: linear-gradient(
+    135deg,
+    rgba(0,200,120,0.9),
+    rgba(0,255,160,0.6),
+    rgba(0,200,120,0.9)
+  );
+}
+
+/* Danger / Close glow */
+.btn.danger::before,
+.close-btn::before {
+  background: linear-gradient(
+    135deg,
+    rgba(255,60,60,0.9),
+    rgba(255,120,120,0.6),
+    rgba(255,60,60,0.9)
+  );
+}
+
+/* Glow trigger */
+.nav-btn:active::before,
+.btn:active::before,
+.card:active::before,
+.service-card:active::before {
+  opacity: 1;
+  animation: edgeGlow 0.45s ease-out;
+}
+
+@keyframes edgeGlow {
+  0% { opacity: 0.9; filter: blur(10px); }
+  100% { opacity: 0; filter: blur(26px); }
+}
+
 .nav-btn:active,
 .btn:active {
-  transform: scale(0.95);
+  transform: scale(0.94);
 }
 
 /* ================= BIG BUTTONS ================= */
@@ -154,7 +198,6 @@ body::before {
 .card,
 .service-card {
   padding: 18px;
-  border-radius: 14px;
 }
 
 /* ================= POPUP ================= */
@@ -180,7 +223,13 @@ body::before {
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255,255,255,0.2);
-  animation: popIn 0.35s ease;
+}
+
+/* ================= CLOSE BUTTON FIX ================= */
+.close-btn {
+  margin-top: 28px !important;
+  padding: 12px 26px;
+  display: inline-block;
 }
 
 /* ================= BACKGROUND VIDEO ================= */
@@ -200,17 +249,10 @@ body::before {
   z-index: -1;
 }
 
-/* ================= MOBILE OPTIMIZATION ================= */
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
 
-  body {
-    font-size: 14px;
-    cursor: default;
-  }
-
-  body::before {
-    display: none; /* disable glow on mobile */
-  }
+  body { font-size: 14px; }
 
   .topbar {
     flex-direction: column;
@@ -218,25 +260,9 @@ body::before {
     padding: 10px;
   }
 
-  .brand {
-    justify-content: center;
-    text-align: center;
-  }
-
   .logo {
     width: 48px;
     height: 48px;
-  }
-
-  .brand h1 {
-    font-size: 18px;
-  }
-
-  .nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
   }
 
   .nav-btn,
@@ -265,5 +291,9 @@ body::before {
   .popup {
     width: 95%;
     padding: 18px;
+  }
+
+  .close-btn {
+    margin-top: 22px !important;
   }
 }
