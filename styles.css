@@ -31,6 +31,10 @@ body {
   top: 0;
   z-index: 200;
 }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 .brand {
   display: flex;
@@ -44,6 +48,10 @@ body {
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
+}
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0 }
+  to { transform: scale(1); opacity: 1 }
 }
 
 /* === CENTER CONTENT === */
@@ -75,6 +83,11 @@ body {
 
 .btn:active, .nav-btn:active {
   transform: scale(0.96);
+}
+.nav-btn:hover, .btn:hover, .service-card:hover, .card:hover {
+  transform: translateY(-4px) scale(1.03);
+  background: rgba(255,255,255,0.22);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.4);
 }
 
 /* === GRIDS === */
@@ -183,3 +196,4 @@ body {
     right: 0;
   }
 }
+
