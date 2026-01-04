@@ -1,8 +1,9 @@
-/* === GLOBAL RESET === */
+/* ================= GLOBAL RESET ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -11,17 +12,39 @@ body {
   color: #fff;
   overflow-x: hidden;
   text-align: center;
-  font-size: 15px;
+  line-height: 1.6;
+  cursor: none; /* hide default cursor for glow */
 }
 
-/* === GLASS EFFECT === */
+/* ================= CURSOR GLOW (PC/LAPTOP) ================= */
+body::before {
+  content: "";
+  position: fixed;
+  top: var(--y, 50%);
+  left: var(--x, 50%);
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(
+    circle,
+    rgba(0,120,255,0.35) 0%,
+    rgba(0,120,255,0.15) 35%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+  transition: top 0.04s linear, left 0.04s linear;
+}
+
+/* ================= GLASS EFFECT ================= */
 .glass {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255,255,255,0.08);
   backdrop-filter: blur(12px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
-/* === TOPBAR === */
+/* ================= TOPBAR ================= */
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -30,7 +53,9 @@ body {
   position: sticky;
   top: 0;
   z-index: 200;
+  animation: slideDown 0.4s ease;
 }
+
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -48,15 +73,18 @@ body {
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
-}
-@keyframes popIn {
-  from { transform: scale(0.7); opacity: 0 }
-  to { transform: scale(1); opacity: 1 }
+  animation: popIn 0.5s ease;
 }
 
-/* === CENTER CONTENT === */
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ================= CENTER CONTENT ================= */
 .container.center {
   margin-top: 40px;
+  padding: 0 14px;
 }
 
 .container h2 {
@@ -69,42 +97,67 @@ body {
   margin-bottom: 25px;
 }
 
-/* === BUTTONS === */
-.nav-btn, .btn, .card {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
+/* ================= BUTTONS (MASTER GLASS STYLE) ================= */
+.nav-btn,
+.btn,
+.card,
+.service-card {
+  background: rgba(255,255,255,0.12) !important;
+  backdrop-filter: blur(10px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  color: #fff !important;
   padding: 10px 16px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.18);
-  color: #fff;
   cursor: pointer;
-  transition: 0.25s;
+  transition: all 0.25s ease;
+  text-decoration: none;
 }
 
-.btn:active, .nav-btn:active {
-  transform: scale(0.96);
-}
-.nav-btn:hover, .btn:hover, .service-card:hover, .card:hover {
+.nav-btn:hover,
+.btn:hover,
+.card:hover,
+.service-card:hover {
   transform: translateY(-4px) scale(1.03);
-  background: rgba(255,255,255,0.22);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+  background: rgba(255,255,255,0.22) !important;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.45);
 }
 
-/* === GRIDS === */
+.nav-btn:active,
+.btn:active {
+  transform: scale(0.95);
+}
+
+/* ================= BIG BUTTONS ================= */
+.center-btns {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.big {
+  font-size: 20px;
+  padding: 16px 28px;
+  border-radius: 14px;
+}
+
+/* ================= GRIDS ================= */
 .product-grid,
 .service-grid,
 .contact-grid {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  padding: 0 12px;
 }
 
-.card {
+.card,
+.service-card {
   padding: 18px;
   border-radius: 14px;
 }
 
-/* === POPUP === */
+/* ================= POPUP ================= */
 .overlay {
   position: fixed;
   inset: 0;
@@ -112,6 +165,7 @@ body {
   justify-content: center;
   align-items: center;
   background: rgba(0,0,0,0.65);
+  z-index: 500;
 }
 
 .overlay-open {
@@ -123,9 +177,13 @@ body {
   max-width: 600px;
   padding: 25px;
   border-radius: 18px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.2);
+  animation: popIn 0.35s ease;
 }
 
-/* === BACKGROUND VIDEO === */
+/* ================= BACKGROUND VIDEO ================= */
 #bg-video {
   position: fixed;
   inset: 0;
@@ -147,6 +205,11 @@ body {
 
   body {
     font-size: 14px;
+    cursor: default;
+  }
+
+  body::before {
+    display: none; /* disable glow on mobile */
   }
 
   .topbar {
@@ -155,16 +218,9 @@ body {
     padding: 10px;
   }
 
-  .nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  .brand {
     justify-content: center;
-  }
-
-  .nav-btn {
-    font-size: 14px;
-    padding: 8px 12px;
+    text-align: center;
   }
 
   .logo {
@@ -176,24 +232,38 @@ body {
     font-size: 18px;
   }
 
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .nav-btn,
+  .btn,
+  .service-card {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .center-btns {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .big {
+    width: 90%;
+    font-size: 18px;
+  }
+
   .product-grid,
   .service-grid,
   .contact-grid {
     grid-template-columns: 1fr;
   }
 
-  .btn {
-    width: 100%;
-  }
-
   .popup {
     width: 95%;
     padding: 18px;
   }
-
-  #admin-panel {
-    width: 100%;
-    right: 0;
-  }
 }
-
