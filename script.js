@@ -242,7 +242,7 @@ Thanks`;
 
 function repairEnquiry() {
   const msg = `Hi,
-I am enquiry about repair.
+I am enquiry about repair. I Agreed with The 
 Visit Charge: ₹${VISIT_CHARGE}
 (After inspection product damage will be checked)
 
@@ -252,4 +252,26 @@ Thanks`;
     `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,
     "_blank"
   );
+
 }
+ window.open(
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,
+    "_blank"
+  );
+}
+function showService(id){
+  const detail = qs('#service-detail');
+  const s = SERVICES.find(x=>x.id===id);
+
+  detail.innerHTML = `
+    <h4>${escapeHtml(s.title)}</h4>
+    <p>${escapeHtml(s.detail)}</p>
+    <button class='btn' onclick="requestQuote('${encodeURIComponent(s.title)}')">
+      Request Quote
+    </button>
+  `;
+
+  detail.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+/* Mobile fast touch response */
+document.addEventListener('touchstart', function(){}, { passive:true });
