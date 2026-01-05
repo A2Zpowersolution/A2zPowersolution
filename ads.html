@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ads Page | A2Z Power Solution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1220">
+
+  <!-- ✅ Google AdSense Verification Code -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8753247559913777"
+    crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1220;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .timer {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #00ffcc;
+    }
+
+    .ad-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 10px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px rgba(0,255,204,0.15);
+    }
+
+    footer {
+      margin-top: 12px;
+      font-size: 12px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="timer">
+      Next ad in <span id="countdown">10</span> seconds
+    </div>
+
+    <div class="ad-box">
+      <!-- ✅ AdSense Auto Ads / Display Ad -->
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8753247559913777"
+        data-ad-slot="1234567890"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    </div>
+
+    <footer>
+      Ads help support A2Z Power Solution
+    </footer>
+  </div>
+
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+
+    let time = 10;
+    const countdown = document.getElementById("countdown");
+
+    setInterval(() => {
+      time--;
+      countdown.textContent = time;
+      if (time <= 0) {
+        time = 10;
+        location.reload(); // 🔁 ad refresh feel
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
