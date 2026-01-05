@@ -125,6 +125,7 @@
     const productsBtn = document.getElementById('products-btn');
     const servicesBtn = document.getElementById('services-btn');
     const adminOpen = document.getElementById('admin-open');
+     const adsBtn = document.getElementById('Ads-btn');
 
     const contactOverlay = document.getElementById('contact-overlay');
     const productsOverlay = document.getElementById('products-overlay');
@@ -136,6 +137,11 @@
     servicesBtn.addEventListener('click', () => open(servicesOverlay));
 
     adminOpen.addEventListener('click', () => location.href = 'admin.html');
+    
+ // ✅ ADS PAGE LINK
+  adsBtn.addEventListener('click', () => {
+    window.location.href = 'ads.html';
+  });
 
     // CLOSE POPUPS
     document.getElementById('contact-close')
@@ -159,4 +165,5 @@
 
 </body>
 </html>
+
 
