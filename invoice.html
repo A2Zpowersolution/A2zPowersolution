@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tax Invoice - A2z Power Solution</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:Arial;background:#f5f5f5}
+.invoice{width:900px;margin:30px auto;background:#fff;padding:30px;box-shadow:0 0 10px rgba(0,0,0,.1)}
+.header{text-align:center}
+.logo{width:120px;border-radius:50%}
+.info{display:flex;justify-content:space-between;margin:20px 0}
+.info div{width:48%}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+table,th,td{border:1px solid #333}
+th{background:#222;color:#fff;padding:8px}
+td{padding:8px;text-align:center}
+input,textarea{width:100%;box-sizing:border-box}
+.total-box{width:360px;float:right;margin-top:20px}
+.gst-row{display:table-row}
+.hidden{display:none}
+.footer{display:flex;justify-content:space-between;margin-top:60px}
+.export{text-align:center;margin-top:40px}
+button{padding:8px 14px;cursor:pointer}
+</style>
+</head>
+
+<body>
+
+<div class="invoice">
+
+<div class="header">
+<img src="A2z Logo.png" class="logo">
+<h2>A2z Power Solution</h2>
+<p>
+Shop No. 315, 3rd Floor, Apka Bazar, Gurgaon, Haryana 122001<br>
+Email: a22zpowersolutionmtvpt@gmail.com | Contact: 7011196579
+</p>
+<h3>TAX INVOICE</h3>
+</div>
+
+<div class="info">
+<div>
+<p><b>Invoice No:</b> <span id="invoiceNo">A2Z-0001</span></p>
+
+<label>
+<input type="radio" name="gstType" value="gst" checked onclick="toggleGST()"> GST Invoice
+</label>
+<label>
+<input type="radio" name="gstType" value="nogst" onclick="toggleGST()"> Without GST Invoice
+</label>
+
+<p><b>Date:</b> <input type="date"></p>
+
+<p id="sellerGST"><b>GST No:</b> <input type="text" placeholder="Your GST Number"></p>
+</div>
+
+<div>
+<p><b>Customer Name:</b> <input type="text"></p>
+<p id="customerGST"><b>Customer GST:</b> <input type="text"></p>
+<p><b>Customer Address:</b></p>
+<textarea rows="4"></textarea>
+</div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Sr</th><th>Description</th><th>HSN</th><th>Qty</th><th>Price ₹</th><th>Amount ₹</th>
+</tr>
+</thead>
+<tbody id="items">
+<tr>
+<td>1</td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td><input type="number" value="1" oninput="calc()"></td>
+<td><input type="number" value="0" oninput="calc()"></td>
+<td class="row-amount">0.00</td>
+</tr>
+</tbody>
+</table>
+
+<button onclick="addRow()">➕ Add Product</button>
+
+<div class="total-box">
+<table>
+<tr><td>Subtotal</td><td id="subtotal">0.00</td></tr>
+<tr>
+<td>Discount %
+<input type="number" id="discountPercent" value="0" oninput="calc()">
+</td>
+<td id="discountAmount">0.00</td>
+</tr>
+
+<tr class="gst-row"><td>CGST @9%</td><td id="cgst">0.00</td></tr>
+<tr class="gst-row"><td>SGST @9%</td><td id="sgst">0.00</td></tr>
+
+<tr><th>Total</th><th id="total">0.00</th></tr>
+</table>
+</div>
+
+<div style="clear:both"></div>
+
+<h4>Bank Details</h4>
+<p>
+Account Name: A2z Power Solution<br>
+Bank Name: ___________<br>
+Account No: ___________<br>
+IFSC: ___________
+</p>
+
+<div class="footer">
+<div>Thank you for your business!</div>
+<div>
+For A2z Power Solution<br><br>
+_____________________<br>
+Authorized Signature
+</div>
+</div>
+
+<div class="export">
+<button onclick="exportInvoice('pdf')">Export PDF</button>
+<button onclick="exportInvoice('word')">Export Word</button>
+<button onclick="exportInvoice('excel')">Export Excel</button>
+</div>
+
+</div>
+
+<script>
+let invoiceCounter = Number(localStorage.getItem("invoiceCounter") || 1);
+document.getElementById("invoiceNo").innerText =
+  "A2Z-" + String(invoiceCounter).padStart(4,"0");
+
+function toggleGST(){
+let gst=document.querySelector('input[name="gstType"]:checked').value;
+document.querySelectorAll(".gst-row").forEach(r=>{
+  r.style.display = gst==="gst" ? "table-row":"none";
+});
+document.getElementById("sellerGST").classList.toggle("hidden",gst!=="gst");
+document.getElementById("customerGST").classList.toggle("hidden",gst!=="gst");
+calc();
+}
+
+function calc(){
+let rows=document.querySelectorAll("#items tr"),subtotal=0;
+rows.forEach((r,i)=>{
+r.cells[0].innerText=i+1;
+let q=r.cells[3].querySelector("input").value||0;
+let p=r.cells[4].querySelector("input").value||0;
+let a=q*p;
+r.querySelector(".row-amount").innerText=a.toFixed(2);
+subtotal+=a;
+});
+document.getElementById("subtotal").innerText=subtotal.toFixed(2);
+
+let d=subtotal*(document.getElementById("discountPercent").value||0)/100;
+document.getElementById("discountAmount").innerText=d.toFixed(2);
+
+let after=subtotal-d;
+let gst=document.querySelector('input[name="gstType"]:checked').value;
+let cg=0,sg=0;
+if(gst==="gst"){cg=after*0.09;sg=after*0.09}
+document.getElementById("cgst").innerText=cg.toFixed(2);
+document.getElementById("sgst").innerText=sg.toFixed(2);
+document.getElementById("total").innerText=(after+cg+sg).toFixed(2);
+}
+
+function addRow(){
+let t=document.getElementById("items");
+let r=t.insertRow();
+r.innerHTML=`<td></td><td><input></td><td><input></td>
+<td><input type="number" value="1" oninput="calc()"></td>
+<td><input type="number" value="0" oninput="calc()"></td>
+<td class="row-amount">0.00</td>`;
+calc();
+}
+
+function exportInvoice(type){
+invoiceCounter++;
+localStorage.setItem("invoiceCounter",invoiceCounter);
+sessionStorage.setItem("exportType",type);
+window.location.href="admin.html";
+}
+
+toggleGST();
+</script>
+
+</body>
+</html>
