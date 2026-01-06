@@ -130,6 +130,7 @@
     const productsBtn = document.getElementById('products-btn');
     const servicesBtn = document.getElementById('services-btn');
     const adminOpen = document.getElementById('admin-open');
+    const invoicebtn =document.getelementbyid('Invoice-btn');
      const adsBtn = document.getElementById('Ads-btn');
 
     const contactOverlay = document.getElementById('contact-overlay');
@@ -140,6 +141,7 @@
     contactBtn.addEventListener('click', () => open(contactOverlay));
     productsBtn.addEventListener('click', () => open(productsOverlay));
     servicesBtn.addEventListener('click', () => open(servicesOverlay));
+    invoicebtn.addeventlistener('click', () => location.href = 'invoice.html');
 
     adminOpen.addEventListener('click', () => location.href = 'admin.html');
     
@@ -170,6 +172,7 @@
 
 </body>
 </html>
+
 
 
 
